@@ -2213,7 +2213,7 @@ def handler(event, context):
         object_key = body["Records"][0]["s3"]["object"]["key"]
 
         # Download the file from S3
-        s3_client = boto3.client("s3", region_name="us-east-1")
+        s3_client = boto3.client("s3")
         s3_client.download_file(bucket_name, object_key, "/tmp/test_transcript.json")
 
         # Load the file into a Python dictionary

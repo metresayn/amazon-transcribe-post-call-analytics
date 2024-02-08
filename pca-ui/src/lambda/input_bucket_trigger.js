@@ -24,7 +24,7 @@ function makeItem(pk, sk, tk, data) {
     };
 }
 
-async function createRecord(key, jobName, status) {
+async function createRecord(callStatus, key, jobName, status) {
     console.log("Creating:", key);
 
     let timestamp = new Date().getTime();
@@ -43,7 +43,7 @@ async function createRecord(key, jobName, status) {
     const callId = `call#${key}`;
 
     // Call entry
-    let item = makeItem(callId, "call", timestamp, data);
+    let item = makeItem(callId, callStatus, timestamp, data);
 
     console.log("Item:", JSON.stringify(item));
 
@@ -109,7 +109,7 @@ exports.handler = async function (event, context) {
         console.log(input);
         const jobName = getJobNameFromKey(input.key);
         const outputFileName = getFilenameFromKey(input.key);
-        const promise = createRecord(outputFileName, jobName, outputState);
+        const promise = createRecord("callStatus", outputFileName, jobName, outputState);
         return await Promise.all([promise]);
         
     } else if(eventType === "Object Created") {
@@ -120,7 +120,7 @@ exports.handler = async function (event, context) {
             const jobName = getJobNameFromKey(event.detail.object.key);
             const outputFileName = getFilenameFromKey(event.detail.object.key);
 
-            const promise = createRecord(outputFileName, jobName, 'InProgress');
+            const promise = createRecord("call", outputFileName, jobName, 'InProgress');
             return await Promise.all([promise]);
         }
     }
