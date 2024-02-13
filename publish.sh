@@ -64,14 +64,14 @@ npm install
 popd
 # Not required, no additional server libraries to package
 # pushd pca-server/src/pca
-# pip install -r requirements.txt -t .
+# pip3 install -r requirements.txt -t .
 # popd
 pushd pca-ui/src/lambda
 npm install
 popd
 
 pushd pca-ui/src/utils/start_codebuild
-pip install -r requirements.txt -t .
+pip3 install -r requirements.txt -t .
 popd
 
 pushd pca-ui/src/lambda/json-to-docx
