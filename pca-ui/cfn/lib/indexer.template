@@ -215,6 +215,9 @@ Resources:
       PackageType: Image
       ImageUri: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${JSONDocECRRepository}:${BootstrapVersion}"
       Timeout: 300
+      MemorySize: 2048
+      EphemeralStorage: 
+        Size: 2048
       Environment:
         Variables:
           OutputBucket: !Ref DataBucket
