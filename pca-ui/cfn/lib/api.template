@@ -38,7 +38,7 @@ Parameters:
     Type: String
     Default: anthropic.claude-v2
     AllowedValues:
-      - amazon.titan-tg1-large
+      - amazon.titan-text-express-v1
       - anthropic.claude-v1
       - anthropic.claude-instant-v1
       - anthropic.claude-v2
@@ -127,7 +127,7 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref TableName
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
   GetFunction:
     Type: "AWS::Serverless::Function"
@@ -150,7 +150,7 @@ Resources:
             BucketName: !Ref DataBucket
         - S3ReadPolicy:
             BucketName: !Ref AudioBucket
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
   ListFunction:
     Type: "AWS::Serverless::Function"
@@ -170,7 +170,7 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref TableName
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
   SearchFunction:
     Type: "AWS::Serverless::Function"
@@ -190,7 +190,7 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref TableName
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
   EntitiesFunction:
     Type: "AWS::Serverless::Function"
@@ -210,7 +210,7 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref TableName
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
   LanguagesFunction:
     Type: "AWS::Serverless::Function"
@@ -230,7 +230,7 @@ Resources:
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref TableName
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
   SwapFunction:
     Type: "AWS::Serverless::Function"
@@ -253,7 +253,7 @@ Resources:
             BucketName: !Ref DataBucket
         - DynamoDBCrudPolicy:
             TableName: !Ref TableName
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
   
   GenAIQueryFunction:
     Type: "AWS::Serverless::Function"
@@ -374,7 +374,7 @@ Resources:
             BucketName: !Ref AudioBucket
         - S3ReadPolicy:
             BucketName: !Ref DataBucket
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
 
 Outputs:
   Uri:
