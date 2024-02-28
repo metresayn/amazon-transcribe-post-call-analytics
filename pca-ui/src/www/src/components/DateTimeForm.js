@@ -99,7 +99,7 @@ function parseValue(value, defaultTime = '') {
 
 function formatTimezoneOffset(isoDate, offsetInMinutes) {
   // Using default browser offset if not explicitly specified.
-  offsetInMinutes = offsetInMinutes ?? 0 - new Date(isoDate).getTimezoneOffset();
+  offsetInMinutes = offsetInMinutes ?? 0;
 
   const sign = offsetInMinutes < 0 ? '-' : '+';
   const hoursOffset = Math.floor(Math.abs(offsetInMinutes) / 60)
