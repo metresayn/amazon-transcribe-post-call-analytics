@@ -78,7 +78,7 @@ function Navigation({ userName, email }) {
     <TopNavigation
       identity={{
         href: "/",
-        title: "Amazon Transcribe Post-Call Analytics",
+        title: "Customer Care Transcribe",
         iconName: "settings"
       }}
       i18nStrings={{
@@ -97,13 +97,13 @@ function Navigation({ userName, email }) {
           href: "search",
           externalIconAriaLabel: " (opens in a new tab)"
         },
-        {
-          type: "button",
-          text: "PCA Blog Post",
-          href: "https://amazon.com/post-call-analytics",
-          external: true,
-          externalIconAriaLabel: " (opens in a new tab)"
-        },
+        // {
+        //   type: "button",
+        //   text: "PCA Blog Post",
+        //   href: "https://amazon.com/post-call-analytics",
+        //   external: true,
+        //   externalIconAriaLabel: " (opens in a new tab)"
+        // },
         {
           type: "menu-dropdown",
           text: userName,
@@ -117,7 +117,7 @@ function Navigation({ userName, email }) {
             /* { id: "profile", text: "Profile" },
             { id: "preferences", text: "Preferences" },
             { id: "security", text: "Security" },*/
-            {
+            /*{
               id: "support-group",
               text: "Support",
               items: [
@@ -138,7 +138,7 @@ function Navigation({ userName, email }) {
                     " (opens in new tab)"
                 }
               ]
-            },
+            },*/
             { id: "signout", text: "Sign out" }
           ]
         }
@@ -157,7 +157,7 @@ function App() {
 
   const userToken = localStorage.getItem("id_token");
   const parsedToken = payloadFromToken(userToken);
-  const cognitoUserName = parsedToken["cognito:username"] || "Unknown";
+  const cognitoUserName = parsedToken["cognito:username"].split("_")[1].split("@")[0] || "Unknown";
   const cognitoEmail = parsedToken["email"] || "Unknown";
 
   return (

@@ -72,8 +72,7 @@ function Home({ setAlert }) {
         header={
             <Header
               variant="h1"
-              description="Select a call record to view details."
-              info={<Link variant="info" ariaLabel="Info goes here.">Info</Link>}>
+              description="Select a call record to view details.">
               Call List
             </Header>
         }>
