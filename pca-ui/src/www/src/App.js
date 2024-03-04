@@ -5,7 +5,7 @@ import {
   NavLink,
 } from "react-router-dom";
 // import { Navbar, Nav, Container, Alert, Button } from "react-bootstrap";
-import { AppLayout,Alert,Notifications, Header, Link, BreadcrumbGroup, TopNavigation, Container, Button} from "@cloudscape-design/components"
+import { AppLayout, Alert, Notifications, Header, Link, BreadcrumbGroup, TopNavigation, Container, Button } from "@cloudscape-design/components"
 import Home from "./routes/Home";
 import Search from "./routes/Search";
 import Dashboard from "./routes/Dashboard/index";
@@ -157,7 +157,7 @@ function App() {
 
   const userToken = localStorage.getItem("id_token");
   const parsedToken = payloadFromToken(userToken);
-  const cognitoUserName = parsedToken["cognito:username"].split("_")[1].split("@")[0] || "Unknown";
+  const cognitoUserName = (parsedToken["cognito:username"] !== "admin") ? parsedToken["cognito:username"].split("_")[1].split("@")[0] : parsedToken["cognito:username"] || "Unknown";
   const cognitoEmail = parsedToken["email"] || "Unknown";
 
   return (
@@ -171,7 +171,7 @@ function App() {
               toolsHide
               navigationHide
               breadcrumbs={
-                <Breadcrumb/>
+                <Breadcrumb />
               }
               notifications={alert && (
                 <Alert

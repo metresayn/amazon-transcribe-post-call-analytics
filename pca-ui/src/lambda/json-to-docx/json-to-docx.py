@@ -74,7 +74,7 @@ SENTIMENT_LANGUAGES = [
 ]
 
 # Image download URLS
-IMAGE_URL_BANNER = "https://raw.githubusercontent.com/aws-samples/amazon-transcribe-output-word-document/main/images/banner.png"
+IMAGE_URL_BANNER = "https://raw.githubusercontent.com/metresayn/amazon-transcribe-post-call-analytics/feature/search/images/cct_docx_banner.png"
 IMAGE_URL_SMILE = "https://raw.githubusercontent.com/aws-samples/amazon-transcribe-output-word-document/main/images/smile.png"
 IMAGE_URL_FROWN = "https://raw.githubusercontent.com/aws-samples/amazon-transcribe-output-word-document/main/images/frown.png"
 IMAGE_URL_NEUTRAL = "https://raw.githubusercontent.com/aws-samples/amazon-transcribe-output-word-document/main/images/neutral.png"
@@ -646,7 +646,7 @@ def write(json_data, speech_segments, job_status, summaries_detected, job_name):
     # -- Media information
     # -- Amazon Transcribe job information
     # -- Average transcript word-confidence scores
-    write_custom_text_header(document, "Amazon Transcribe Audio Source")
+    # write_custom_text_header(document, "Amazon Transcribe Audio Source")
     table = document.add_table(rows=1, cols=2)
     table.style = document.styles[TABLE_STYLE_STANDARD]
     table.alignment = WD_ALIGN_PARAGRAPH.LEFT
