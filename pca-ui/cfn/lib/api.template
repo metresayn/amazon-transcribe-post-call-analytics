@@ -176,6 +176,7 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       CodeUri:  ../../src/lambda
+      Timeout: 60
       Handler: search.handler
       Environment:
         Variables:

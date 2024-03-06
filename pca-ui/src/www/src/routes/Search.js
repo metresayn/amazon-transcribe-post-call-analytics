@@ -89,7 +89,7 @@ function Search({ setAlert }) {
     header={
       <Header
         variant="h1"
-        info={<Link variant="info" ariaLabel="Info goes here.">Info</Link>}>
+        description="Search for call records. Enter the parameter(s) and click on Search.">
           Search
       </Header>
     }>

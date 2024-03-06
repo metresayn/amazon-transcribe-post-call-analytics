@@ -117,19 +117,21 @@ function Navigation({ userName, email }) {
             /* { id: "profile", text: "Profile" },
             { id: "preferences", text: "Preferences" },
             { id: "security", text: "Security" },*/
-            /*{
+            {
               id: "support-group",
               text: "Support",
               items: [
                 {
-                  id: "documentation",
-                  text: "GitHub/Readme",
-                  href: "https://github.com/aws-samples/amazon-transcribe-post-call-analytics/",
+                  id: "support",
+                  text: "Support Email",
+                  href: "mailto:gmtr@novonordisk.com",
                   external: true,
-                  externalIconAriaLabel:
-                    " (opens in new tab)"
-                },
-                {
+                  // externalIconAriaLabel:
+                  //   " (opens in new tab)"
+                }
+              ]
+            },
+                /*{
                   id: "feedback",
                   text: "Blog Post",
                   href: "https://amazon.com/post-call-analytics",

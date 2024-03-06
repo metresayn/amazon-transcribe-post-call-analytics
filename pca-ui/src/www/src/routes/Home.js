@@ -84,9 +84,9 @@ function Home({ setAlert }) {
               {colspan: { default:12} }
             ]}
           >
-            <ExpandableSection headerText="Upload call recordings">
+            {/* <ExpandableSection headerText="Upload call recordings">
                 <Upload/>
-            </ExpandableSection>
+            </ExpandableSection> */}
             <ContactTable
               data={details}
               loading={!data && !error}
