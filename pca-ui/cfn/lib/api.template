@@ -177,6 +177,7 @@ Resources:
     Properties:
       CodeUri:  ../../src/lambda
       Timeout: 60
+      MemorySize: 1024
       Handler: search.handler
       Environment:
         Variables:

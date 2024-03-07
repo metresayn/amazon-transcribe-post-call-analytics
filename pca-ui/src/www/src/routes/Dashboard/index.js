@@ -319,6 +319,9 @@ function Dashboard({ setAlert }) {
         // clean up "a" element & remove ObjectURL
         document.body.removeChild(link);
         URL.revokeObjectURL(href);
+
+        // Set isDownloading to false after the download completes
+        setIsDownloading(false);
       });
 
     } catch (err) {
@@ -328,7 +331,7 @@ function Dashboard({ setAlert }) {
         variant: "danger",
         text: "Unable to download the document. Please try again later",
       });
-    } finally {
+      // Set isDownloading to false if an error occurs
       setIsDownloading(false);
     }
   };

@@ -25,7 +25,7 @@ function Number(input) {
 }
 
 function Timestamp(input) {
-  const dt = DateTime.fromMillis(input);
+  const dt = DateTime.fromMillis(input, {zone: 'utc'});
   return dt.toString().slice(0, 19).replace("T", " ");
 }
 

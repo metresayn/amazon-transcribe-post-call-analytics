@@ -123,9 +123,9 @@ function Navigation({ userName, email }) {
               items: [
                 {
                   id: "support",
-                  text: "Support Email",
-                  href: "mailto:gmtr@novonordisk.com",
-                  external: true,
+                  text: "Please send an email to supportcct@novonordisk.com",
+                  // href: "mailto:gmtr@novonordisk.com",
+                  // external: true,
                   // externalIconAriaLabel:
                   //   " (opens in new tab)"
                 }
