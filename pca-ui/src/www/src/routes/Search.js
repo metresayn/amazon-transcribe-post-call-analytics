@@ -209,7 +209,8 @@ function Search({ setAlert }) {
             </SpaceBetween>
           </FormField>
 
-          <FormField label="Job Name">
+          <FormField label="Job Name"
+          description="Please enter the search text here. You can search using any of the column values">
             <SpaceBetween direction="horizontal" size="l">
               <Input
                   value={jobName}

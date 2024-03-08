@@ -33,6 +33,24 @@ function makeQuery(key, filter, filter_values) {
   };
 }
 
+async function* getAllResults(
+  db,
+  query
+) {
+  console.info(`Querying Dynamo`, query.ExpressionAttributeValues);
+
+  let queryResult;
+  do {
+    queryResult = await db.query(query).promise();
+    console.info(`Query Result`, queryResult);
+    query.ExclusiveStartKey = queryResult?.LastEvaluatedKey;
+
+    if (queryResult.Items) {
+      yield* queryResult.Items;
+    }
+  } while (query.ExclusiveStartKey);
+}
+
 const handler = async function (event, context) {
   console.log(
     JSON.stringify(
@@ -136,22 +154,25 @@ const handler = async function (event, context) {
 
   console.log("Queries:", JSON.stringify(queries, null, 4));
 
-  let promises = queries.map((query) => {
-    return ddb.query(query).promise();
-  });
-
   let results = [];
   try {
-    results = await Promise.all(promises);
-  } catch (e) {
-    throw e;
+    for (const query of queries) {
+      const items = [];
+      for await (const item of getAllResults(ddb, query)) {
+        items.push(item);
+      }
+      results.push(items);
+    }
+  } catch (error) {
+    throw error;
+    // Handle the error as needed
   }
   console.log("Results:", results);
 
-  let output = results[0].Items;
+  let output = results[0];
 
-  results = results.map((result) => {
-    return result.Items.reduce((a, item) => {
+  results = results.map((items) => {
+    return items.reduce((a, item) => {
       a[item.PK.S] = true;
       return a;
     }, {});
