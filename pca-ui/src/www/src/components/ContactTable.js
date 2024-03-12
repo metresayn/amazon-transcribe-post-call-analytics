@@ -38,7 +38,7 @@ const COLUMN_DEFINITIONS = [
   },
   {
     id: "jobName",
-    header: "Job Name",
+    header: "Interaction Id",
     cell: (d) => {
       if(d.status !== undefined && d.status.length > 0) {
         return (

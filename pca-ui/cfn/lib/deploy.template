@@ -94,7 +94,7 @@ Resources:
     Properties:
       ServiceToken: !GetAtt DeployFunction.Arn
       Counter: !Ref DeployCountValue
-      Version: "0.9.2"
+      Version: "0.9.3"
 
   Configure:
     Type: "AWS::CloudFormation::CustomResource"
