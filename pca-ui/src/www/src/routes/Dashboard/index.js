@@ -347,7 +347,7 @@ function Dashboard({ setAlert }) {
       value: (d) => d?.ConversationAnalytics?.ConversationTime.substring(0, 19),
     },
     { label: "Guid", value: (d) => d?.ConversationAnalytics?.GUID },
-    { label: "Agent", value: (d) => d?.ConversationAnalytics?.Agent },
+    { label: "Agent", value: (d) => d?.ConversationAnalytics?.Agent ? d?.ConversationAnalytics?.Agent.replace(/-/g, ' ').replace(/\./g, ',') : '' },,
     {
       label: "Call Duration",
       value: (d) => Formatter.Time(d.ConversationAnalytics.Duration),

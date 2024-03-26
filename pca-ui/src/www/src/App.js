@@ -123,7 +123,7 @@ function Navigation({ userName, email }) {
               items: [
                 {
                   id: "support",
-                  text: "Please send an email to supportcct@novonordisk.com",
+                  text: "Please send an email to nni_data_engineering@novonordisk.com",
                   // href: "mailto:gmtr@novonordisk.com",
                   // external: true,
                   // externalIconAriaLabel:

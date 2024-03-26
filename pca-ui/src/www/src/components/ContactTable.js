@@ -73,7 +73,7 @@ const COLUMN_DEFINITIONS = [
   {
     id: "agent",
     header: "Agent",
-    cell: (d) => d.agent,
+    cell: (d) => d.agent.replace(/-/g, ' ').replace(/\./g, ','),
     isRowHeader: true,
     sortingField: "agent",
     minWidth:130

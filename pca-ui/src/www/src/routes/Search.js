@@ -38,8 +38,8 @@ function Search({ setAlert }) {
 
   useEffect(() => {
     (query.timestampTo && query.timestampTo) ||
-    (!query.timestampTo && !query.timestampFrom) ||
-    (jobName)
+      (!query.timestampTo && !query.timestampFrom) ||
+      (jobName)
       ? setShouldSearch(true)
       : setShouldSearch(false);
   }, [query.timestampTo, query.timestampFrom, jobName]);
@@ -63,8 +63,16 @@ function Search({ setAlert }) {
     const timestampFrom = new Date(start).getTime();
     const timestampTo = end ? new Date(end).setUTCHours(23, 59, 59, 999) : null;
 
-    handleQueryInput(timestampFrom, "timestampFrom");
-    handleQueryInput(timestampTo, "timestampTo");
+    const ninetyDaysAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
+
+    if (timestampFrom < ninetyDaysAgo || (timestampTo && timestampTo < ninetyDaysAgo)) {
+      setShouldSearch(false);
+      alert('Cannot search for timestamps greater than the last 90 days');
+    } else {
+      handleQueryInput(timestampFrom, "timestampFrom");
+      handleQueryInput(timestampTo, "timestampTo");
+      setShouldSearch(true);
+    }
   };
 
   const filterEmptyKeys = (obj) => {
@@ -85,14 +93,14 @@ function Search({ setAlert }) {
   useDangerAlert(errorEntities || errorLanguageCodes || errorResults, setAlert);
 
   return (
-  <ContentLayout 
-    header={
-      <Header
-        variant="h1"
-        description="Search for call records. Enter the parameter(s) and click on Search.">
+    <ContentLayout
+      header={
+        <Header
+          variant="h1"
+          description="Search for call records. Enter the parameter(s) and click on Search.">
           Search
-      </Header>
-    }>
+        </Header>
+      }>
       <Container>
         <Form>
           <SpaceBetween direction="vertical" size="l">
@@ -118,7 +126,7 @@ function Search({ setAlert }) {
                     handleQueryInput(null, "language");
                   }}
                 >
-                Clear
+                  Clear
                 </Button>
               </SpaceBetween>
             </FormField>
@@ -144,118 +152,118 @@ function Search({ setAlert }) {
                   Clear
                 </Button>
               </SpaceBetween>
-          </FormField>
-          <FormField label="Sentiment">
-            <SpaceBetween direction="horizontal" size="l">
-              <p className="align-self-end mb-0">The</p>
-              <Select
-                className="flex-grow-1"
-                options={sentimentWhat}
-                onChange={(event) =>
-                  handleQueryInput(event.value, "sentimentWhat")
-                }
-                value={
-                  sentimentWhat.find((o) => o.value === query.sentimentWhat) ||
-                  null
-                }
-              />
-              <p className="align-self-end mb-0"> sentiment of the</p>
-              <Select
-                className="flex-grow-1"
-                options={sentimentWho}
-                onChange={(event) =>
-                  handleQueryInput(event.value, "sentimentWho")
-                }
-                value={
-                  sentimentWho.find((o) => o.value === query.sentimentWho) || null
-                }
-              />
-              <p className="align-self-end mb-0">is</p>
-              <Select
-                className="flex-grow-1"
-                options={sentimentDirection}
-                onChange={(event) =>
-                  handleQueryInput(event.value, "sentimentDirection")
-                }
-                value={
-                  sentimentDirection.find(
-                    (o) => o.value === query.sentimentDirection
-                  ) || null
-                }
-              />
-              <Button
-                className="mt-2"
-                variant="outline-secondary"
-                onClick={() => {
-                  handleQueryInput(null, "sentimentWhat");
-                  handleQueryInput(null, "sentimentWho");
-                  handleQueryInput(null, "sentimentDirection");
-                }}
-              >
-                Clear
-              </Button>
-            </SpaceBetween>
-          </FormField>
-          <FormField label="Entities">
-            <SpaceBetween direction="horizontal" size="l">
-              <MultiSelect
-                options={(entities || []).map((entity) => ({
-                  value: entity,
-                  label: entity,
-                }))}
-                onChange={(value) => handleQueryInput(value, "entity")}
-                isLoading={!entities && !errorEntities}
+            </FormField>
+            <FormField label="Sentiment">
+              <SpaceBetween direction="horizontal" size="l">
+                <p className="align-self-end mb-0">The</p>
+                <Select
+                  className="flex-grow-1"
+                  options={sentimentWhat}
+                  onChange={(event) =>
+                    handleQueryInput(event.value, "sentimentWhat")
+                  }
+                  value={
+                    sentimentWhat.find((o) => o.value === query.sentimentWhat) ||
+                    null
+                  }
                 />
-            </SpaceBetween>
-          </FormField>
+                <p className="align-self-end mb-0"> sentiment of the</p>
+                <Select
+                  className="flex-grow-1"
+                  options={sentimentWho}
+                  onChange={(event) =>
+                    handleQueryInput(event.value, "sentimentWho")
+                  }
+                  value={
+                    sentimentWho.find((o) => o.value === query.sentimentWho) || null
+                  }
+                />
+                <p className="align-self-end mb-0">is</p>
+                <Select
+                  className="flex-grow-1"
+                  options={sentimentDirection}
+                  onChange={(event) =>
+                    handleQueryInput(event.value, "sentimentDirection")
+                  }
+                  value={
+                    sentimentDirection.find(
+                      (o) => o.value === query.sentimentDirection
+                    ) || null
+                  }
+                />
+                <Button
+                  className="mt-2"
+                  variant="outline-secondary"
+                  onClick={() => {
+                    handleQueryInput(null, "sentimentWhat");
+                    handleQueryInput(null, "sentimentWho");
+                    handleQueryInput(null, "sentimentDirection");
+                  }}
+                >
+                  Clear
+                </Button>
+              </SpaceBetween>
+            </FormField>
+            <FormField label="Entities">
+              <SpaceBetween direction="horizontal" size="l">
+                <MultiSelect
+                  options={(entities || []).map((entity) => ({
+                    value: entity,
+                    label: entity,
+                  }))}
+                  onChange={(value) => handleQueryInput(value, "entity")}
+                  isLoading={!entities && !errorEntities}
+                />
+              </SpaceBetween>
+            </FormField>
 
-          <FormField label="Global Search (Search for interaction ids, agent names, etc. across all audio files)"
-          description="Please enter the search text here. You can search using any of the column values">
-            <SpaceBetween direction="horizontal" size="l">
-              <Input
+            <FormField label="Global Search (Search for interaction ids, agent names, etc. across all audio files)"
+              description="Please enter the search text here. You can search using any of the column values">
+              <SpaceBetween direction="horizontal" size="l">
+                <Input
                   value={jobName}
                   onChange={(event) => {
                     setJobName(event.detail.value);
                     handleQueryInput(event.detail.value, "jobName");
                   }
-                }
-              />
-              <Button
+                  }
+                />
+                <Button
                   className="mt-2"
                   variant="outline-secondary"
                   onClick={() => {
                     setJobName("");
                     handleQueryInput(null, "jobName");
                   }}
-              >
-                Clear
-              </Button>
+                >
+                  Clear
+                </Button>
 
-            </SpaceBetween>
-          </FormField>
+              </SpaceBetween>
+            </FormField>
 
 
-          <Button bg={"primary"} onClick={onClick}>
-            Search
-          </Button>
-            
-          <hr/>
-        </SpaceBetween>
-      </Form>
-      {!editing && (
+            <Button bg={"primary"} onClick={onClick}>
+              Search
+            </Button>
+
+            <hr />
+          </SpaceBetween>
+        </Form>
+        {!editing && (
           <ContactTable
             header={
               <Header>
-              Search Results
+                Search Results
               </Header>
             }
-    
+
             variant="embedded"
-          data={results}
-          loading={!results && !errorResults}
-          empty={<NoMatches />}
-        />
-      )}
+            data={results}
+            loading={!results && !errorResults}
+            empty={<NoMatches />}
+          />
+        )}
       </Container>
     </ContentLayout>
   );

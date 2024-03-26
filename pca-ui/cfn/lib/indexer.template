@@ -186,6 +186,9 @@ Resources:
       BillingMode: PAY_PER_REQUEST
       SSESpecification:
         SSEEnabled: True
+      TimeToLiveSpecification:
+        AttributeName: TTL
+        Enabled: true
 
   IndexFunction:
     Type: "AWS::Serverless::Function"

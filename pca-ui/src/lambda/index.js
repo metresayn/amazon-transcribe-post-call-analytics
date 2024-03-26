@@ -18,6 +18,10 @@ function makeItem(pk, sk, tk, data) {
         Data: {
             S: data,
         },
+        TTL: {
+            N: `${Math.floor(Date.now() / 1000) + 90 * 24 * 60 * 60}`,
+        },
+
     };
 }
 
